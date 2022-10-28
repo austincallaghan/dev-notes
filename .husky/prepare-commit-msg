@@ -1,0 +1,8 @@
+#!/bin/sh
+
+GLOBAL_HOOKS_PATH=$(cd .. && git config core.hooksPath)
+PREPARE_COMMIT_MSG="$GLOBAL_HOOKS_PATH/prepare-commit-msg"
+
+if [[ -f $PREPARE_COMMIT_MSG ]]; then
+    $PREPARE_COMMIT_MSG $@
+fi

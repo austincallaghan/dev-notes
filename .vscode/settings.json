@@ -1,0 +1,16 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "eslint.packageManager": "yarn",
+  "eslint.probe": [
+    "javascript",
+    "typescript",
+    "html",
+    "markdown",
+    "svelte"
+  ],
+  "eslint.validate": ["typescript", "svelte"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

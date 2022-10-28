@@ -1,0 +1,15 @@
+{
+  "connect-src": ["https://stats.g.doubleclick.net", "https://tags.srv.stackadapt.com", "https://api.permutive.com"],
+  "script-src-elem": [
+    "https://go.affec.tv",
+    "https://tags.srv.stackadapt.com",
+    "https://acdn.adnxs.com",
+    "https://secure.adnxs.com",
+    "https://go.affec.tv",
+    "https://www.googletagmanager.com",
+    "https://cdn.permutive.com",
+    "https://secure.adnxs.com",
+    "https://map.go.affec.tv"
+  ],
+  "style-src-elem": ["https://tags.srv.stackadapt.com"]
+}

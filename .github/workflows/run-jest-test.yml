@@ -1,0 +1,31 @@
+name: Run tests for pull request
+on:
+  pull_request:
+    paths-ignore:
+      - 'terraform/**'
+
+jobs:
+  build:
+    name: Run tests
+    runs-on: ubuntu-latest
+    env:
+      NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get Node Version from Volta in package.json
+        id: nodeversion
+        run: echo "##[set-output name=NODE_VERSION;]$(jq -r .volta.node package.json)"
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '${{ steps.nodeversion.outputs.NODE_VERSION }}'
+
+      - name: Install modules
+        run: yarn install --frozen-lockfile
+
+      - name: Run tests
+        run: yarn test --passWithNoTests

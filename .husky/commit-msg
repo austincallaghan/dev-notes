@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+COMMIT_MESSAGE=`cat $1`
+COMMIT_TITLE_PATTERN="[[:space:]]*(feat:|fix:|build:|chore:|ci:|docs:|style:|refactor:|perf:|test:).*"
+JIRA_STORY_PATTERN="
+[[:space:]]*jira:[[:blank:]][a-zA-Z]+-[0-9]+" #The newline here is intentional. Literally looking for a newline in regex and \n not supported
+
+COLOR_YELLOW='\033[1;33m'
+COLOR_DEFAULT='\033[0m'
+
+if ! [[ "$COMMIT_MESSAGE" =~ $COMMIT_TITLE_PATTERN ]] || ! [[ "$COMMIT_MESSAGE" =~ $JIRA_STORY_PATTERN ]]
+then
+  echo " "
+  echo -e "${COLOR_YELLOW} WARN: Commit message does not match template"
+  echo -e "${COLOR_DEFAULT}"
+fi

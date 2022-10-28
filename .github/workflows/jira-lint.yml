@@ -1,0 +1,14 @@
+name: JIRA Lint
+on: [pull_request]
+
+jobs:
+  jira-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: invitation-homes/jira-lint@master
+        name: jira-lint
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          jira-token: ${{ secrets.JIRA_API_BASIC_AUTH_HEADER_VALUE }}
+          skip-comments: true
+          pr-threshold: 800

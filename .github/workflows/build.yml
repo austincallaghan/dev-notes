@@ -1,0 +1,45 @@
+name: Run build
+env:
+  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    name: Svelte Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get Node Version from Volta in package.json
+        id: nodeversion
+        run: echo "##[set-output name=NODE_VERSION;]$(jq -r .volta.node package.json)"
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '${{ steps.nodeversion.outputs.NODE_VERSION }}'
+
+      - name: Cache Modules
+        id: cache-modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install modules
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+
+      - name: Build application
+        run: yarn build

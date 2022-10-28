@@ -1,0 +1,5 @@
+# These owners will be the default reviewers when someone opens a pull request in Svelte Template project
+
+# The star below is a wild card. Be careful when updating this file from VSCode so it's formatted as Plain Text
+# and not Markdown. Remove the # symbol to uncomment the *, then replace the github-username placeholders with real github usernames of your desired default reviewers
+#*     @github-username @github-username

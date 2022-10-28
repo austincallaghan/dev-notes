@@ -1,0 +1,28 @@
+name: Verify PR - Code Lint
+on: [pull_request]
+
+jobs:
+  lint:
+    name: Code Lint (ESLint)
+    runs-on: ubuntu-latest
+    env:
+      NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get Node Version from Volta in package.json
+        id: nodeversion
+        run: echo "##[set-output name=NODE_VERSION;]$(jq -r .volta.node package.json)"
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '${{ steps.nodeversion.outputs.NODE_VERSION }}'
+
+      - name: Install Node Modules
+        run: yarn install --frozen-lockfile
+
+      - name: Lint Project
+        run: yarn lint
