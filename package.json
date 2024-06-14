@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.0.1",
   "engines": {
-    "node": ">=18.6.0"
+    "node": "16.14.0"
   },
   "volta": {
-    "node": ">=18.6.0",
+    "node": "16.14.0",
     "yarn": "1.22.18"
   },
   "scripts": {
@@ -17,6 +17,7 @@
     "bootstrap:env": "heroku config --shell --app svelte-template > .env && cat local.env >> .env",
     "test": "jest",
     "test:visual": "yarn happo-e2e -- -- yarn cypress run",
+    "cy:open": "cypress open",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "formatting": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
@@ -25,20 +26,21 @@
   },
   "dependencies": {
     "@sveltejs/kit": "next",
+    "cypress": "^10.11.0",
     "dd-trace": "^3.2.0",
     "jwt-decode": "^3.1.2"
   },
   "devDependencies": {
-    "@invitation-homes/svelte-ui": "^0.17.0",
     "@invitation-homes/logger": "^1.0.0",
+    "@invitation-homes/svelte-ui": "^0.21.0",
     "@sveltejs/adapter-node": "1.0.0-next.96",
     "@types/jest": "^29.1.1",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "@vitejs/plugin-basic-ssl": "^0.1.1",
     "eslint": "^8.16.0",
-    "eslint-plugin-jest": "^26.7.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^26.7.0",
     "eslint-plugin-no-only-tests": "^3.0.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "happo-cypress": "^3.0.1",
